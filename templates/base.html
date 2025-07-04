@@ -1,0 +1,46 @@
+<!DOCTYPE "html">
+<html lang="en">
+<head>
+  {% block title %}
+    <title>Restaurant</title>
+  {% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3">
+      <ul>
+        <li>
+          <a href="{% url 'restaurant:index' %}">Home</a>
+        </li>
+        <li>
+          <a href="#">All dishes</a>
+        </li>
+        <li>
+          <a href="#">All cooks</a>
+        </li>
+        <li>
+          <a href="#">All dish types</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9">
+      <h1>Restaurant</h1>
+      <p>Welcome to the Restaurant!</p>
+      <h3>Restaurant content</h3>
+      <ul>
+        <li>Number of dishes: {{ num_dishes }}</li>
+        <li>Number of cooks: {{ num_cooks }}</li>
+        <li>Number of dish types: {{ num_dish_types }}</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+</body>
+
+</html>
