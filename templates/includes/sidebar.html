@@ -3,12 +3,12 @@
     <a href="{% url 'restaurant:index' %}">Home</a>
   </li>
   <li>
-    <a href="#">All dishes</a>
+    <a href="{% url 'restaurant:cook-list' %}">All cooks</a>
   </li>
   <li>
-    <a href="#">All cooks</a>
+    <a href="{% url 'restaurant:dish-list' %}">All dishes</a>
   </li>
   <li>
-    <a href="#">All dish types</a>
+    <a href="{% url 'restaurant:dish-type-list' %}">All dish types</a>
   </li>
 </ul>

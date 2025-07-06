@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Cook list</h1>
+  {% if cook_list %}
+    <ul>
+      {% for cook in cook_list %}
+        <li><a href="#">{{ cook.first_name }} ({{ cook.last_name }})</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no cooks in the Restaurant</p>
+  {% endif %}
+{% endblock %}
