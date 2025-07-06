@@ -2,9 +2,9 @@
 
 {% block content %}
   <h1>Dish types list</h1>
-  {% if dish_types_list %}
+  {% if dish_type_list %}
     <ul>
-      {% for dish_type in dish_types_list %}
+      {% for dish_type in dish_type_list %}
         <li>{{ dish_type.name }}</li>
       {% endfor %}
     </ul>
