@@ -1,5 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.views import generic
+
 from .models import Dish, Cook, DishType
 
 
@@ -15,9 +17,15 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "restaurant/index.html", context = context)
 
 
-def dish_types_list_view(request: HttpRequest) -> HttpResponse:
-    dish_types_list = DishType.objects.all()
-    context = {
-        "dish_types_list": dish_types_list,
-    }
-    return render(request, "restaurant/dish_types_list.html", context = context)
+class DishTypeListView(generic.ListView):
+    model = DishType
+    template_name = "restaurant/dish_type_list.html"
+    context_object_name = "dish_type_list"
+
+
+class DishListView(generic.ListView):
+    model = Dish
+
+
+class CookListView(generic.ListView):
+    model = Cook
