@@ -13,3 +13,11 @@ def index(request: HttpRequest) -> HttpResponse:
         "num_dish_types": num_dish_types,
     }
     return render(request, "restaurant/index.html", context = context)
+
+
+def dish_types_list_view(request: HttpRequest) -> HttpResponse:
+    dish_types_list = DishType.objects.all()
+    context = {
+        "dish_types_list": dish_types_list,
+    }
+    return render(request, "restaurant/dish_types_list.html", context = context)
