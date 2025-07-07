@@ -25,6 +25,15 @@ class DishTypeListView(generic.ListView):
 
 class DishListView(generic.ListView):
     model = Dish
+    queryset = Dish.objects.select_related("dish_type")
+
+
+def dish_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
+    dish = Dish.objects.get(pk=pk)
+    context = {
+        "dish": dish,
+    }
+    return render(request, "restaurant/dish_detail.html", context=context)
 
 
 class CookListView(generic.ListView):
