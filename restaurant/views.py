@@ -35,3 +35,10 @@ class DishDetailView(generic.DetailView):
 
 class CookListView(generic.ListView):
     model = Cook
+
+
+def test_session_view(request: HttpRequest) -> HttpResponse:
+    return HttpResponse(
+        "<h1>Test Session</h1>"
+        f"<h4>Session data: {request.session['dish']}</h4>"
+    )
