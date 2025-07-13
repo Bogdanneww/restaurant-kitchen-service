@@ -38,6 +38,11 @@ class DishDetailView(generic.DetailView):
 
 class CookListView(generic.ListView):
     model = Cook
+    paginate_by = 3
+
+
+class CookDetailView(generic.DetailView):
+    model = Cook
 
 
 def test_session_view(request: HttpRequest) -> HttpResponse:
