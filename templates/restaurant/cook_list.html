@@ -11,4 +11,8 @@
   {% else %}
     <p>There are no cooks in the Restaurant</p>
   {% endif %}
+
+  <h5>
+    <a href="{% url 'restaurant:cook-create' %}"> + create cook</a>
+  </h5>
 {% endblock %}
