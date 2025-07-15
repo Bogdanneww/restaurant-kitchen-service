@@ -2,13 +2,24 @@
 
 {% block content %}
   <h1>Dish types list</h1>
+
   {% if dish_type_list %}
     <ul>
       {% for dish_type in dish_type_list %}
-        <li>{{ dish_type.name }}</li>
+        <li>
+          {{ dish_type.name }}
+          |
+          <a href="{% url 'restaurant:dish-type-update' dish_type.id %}" style="color: darkolivegreen;">Update</a>
+          |
+          <a href="{% url 'restaurant:dish-type-delete' dish_type.id %}" style="color: red;">Delete</a>
+        </li>
       {% endfor %}
     </ul>
   {% else %}
     <p>There are no dish types in the Restaurant</p>
   {% endif %}
+
+  <h5>
+    <a href="{% url 'restaurant:dish-type-create' %}"> + create dish type</a>
+  </h5>
 {% endblock %}
