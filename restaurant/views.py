@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, Http404
 from django.shortcuts import render
 from django.views import generic
+from rest_framework.reverse import reverse_lazy
 
 from .models import Dish, Cook, DishType
 
@@ -36,6 +38,13 @@ class DishDetailView(generic.DetailView):
     model = Dish
 
 
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dish
+    fields = "__all__"
+    success_url = reverse_lazy("restaurant:dish-list")
+    template_name = "restaurant/dish_form.html"
+
+
 class CookListView(generic.ListView):
     model = Cook
     paginate_by = 3
@@ -43,10 +52,3 @@ class CookListView(generic.ListView):
 
 class CookDetailView(generic.DetailView):
     model = Cook
-
-
-def test_session_view(request: HttpRequest) -> HttpResponse:
-    return HttpResponse(
-        "<h1>Test Session</h1>"
-        f"<h4>Session data: {request.session['dish']}</h4>"
-    )

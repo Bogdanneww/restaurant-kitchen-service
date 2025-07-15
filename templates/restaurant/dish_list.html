@@ -11,4 +11,5 @@
   {% else %}
     <p>There are no dishes in the Restaurant</p>
   {% endif %}
+  <h5><a href="{% url 'restaurant:dish-create' %}"> + create dish</a></h5>
 {% endblock %}
