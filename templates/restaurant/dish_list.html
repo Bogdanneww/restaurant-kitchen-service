@@ -2,14 +2,26 @@
 
 {% block content %}
   <h1>Dish list</h1>
+
   {% if dish_list %}
     <ul>
       {% for dish in dish_list %}
-        <li><a href="{% url 'restaurant:dish-detail' dish.id %}">{{ dish.name }} ({{ dish.price }}, {{ dish.dish_type }})</a></li>
+        <li>
+          <a href="{% url 'restaurant:dish-detail' dish.id %}">
+            {{ dish.name }} ({{ dish.price }}, {{ dish.dish_type }})
+          </a>
+          |
+          <a href="{% url 'restaurant:dish-update' dish.id %}" style="color: darkolivegreen;">Update</a>
+          |
+          <a href="{% url 'restaurant:dish-delete' dish.id %}" style="color: red;">Delete</a>
+        </li>
       {% endfor %}
     </ul>
   {% else %}
     <p>There are no dishes in the Restaurant</p>
   {% endif %}
-  <h5><a href="{% url 'restaurant:dish-create' %}"> + create dish</a></h5>
+
+  <h5>
+    <a href="{% url 'restaurant:dish-create' %}"> + create dish</a>
+  </h5>
 {% endblock %}
