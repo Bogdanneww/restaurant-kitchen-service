@@ -1,10 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, Http404
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import generic
-from rest_framework.reverse import reverse_lazy
+from django.urls import reverse_lazy
 
-from .forms import CookCreationForm
+from .forms import CookCreationForm, DishForm
 from .models import Dish, Cook, DishType
 
 
@@ -62,14 +62,14 @@ class DishDetailView(generic.DetailView):
 
 class DishCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
     success_url = reverse_lazy("restaurant:dish-list")
     template_name = "restaurant/dish_form.html"
 
 
 class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
     success_url = reverse_lazy("restaurant:dish-list")
     template_name = "restaurant/dish_form.html"
 
