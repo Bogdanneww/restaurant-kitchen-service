@@ -57,8 +57,17 @@ class DishListView(generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
-        context["search_form"] = DishSearchForm()
+        name = self.request.GET.get("name", "")
+        context["search_form"] = DishSearchForm(
+            initial={"name": name}
+        )
         return context
+
+    def get_queryset(self):
+        form = DishSearchForm(self.request.GET)
+        if form.is_valid():
+            return self.queryset.filter(name__icontains=form.cleaned_data["name"])
+        return self.queryset
 
 
 class DishDetailView(generic.DetailView):
