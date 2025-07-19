@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.urls import reverse_lazy
 
-from .forms import CookCreationForm, DishForm
+from .forms import CookCreationForm, DishForm, DishSearchForm
 from .models import Dish, Cook, DishType
 
 
@@ -54,6 +54,11 @@ class DishListView(generic.ListView):
     model = Dish
     queryset = Dish.objects.select_related("dish_type")
     paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(DishListView, self).get_context_data(**kwargs)
+        context["search_form"] = DishSearchForm()
+        return context
 
 
 class DishDetailView(generic.DetailView):
