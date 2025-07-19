@@ -3,29 +3,53 @@
 
 {% block content %}
   <h1>Dish list</h1>
-  <form method="get" action="" class="form-inline">
+
+  <form method="get" action="" class="form-inline mb-3">
     {{ search_form|crispy }}
     <input class="btn btn-secondary" type="submit" value="🔍">
   </form>
+
   {% if dish_list %}
-    <ul>
-      {% for dish in dish_list %}
-        <li>
-          <a href="{% url 'restaurant:dish-detail' dish.id %}">
-            {{ dish.name }} ({{ dish.price }}, {{ dish.dish_type }})
-          </a>
-          |
-          <a href="{% url 'restaurant:dish-update' dish.id %}" style="color: darkolivegreen;">Update</a>
-          |
-          <a href="{% url 'restaurant:dish-delete' dish.id %}" style="color: red;">Delete</a>
-        </li>
-      {% endfor %}
-    </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Dish type</th>
+          <th>Price</th>
+          {% if user.is_authenticated %}
+            <th>Actions</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for dish in dish_list %}
+          <tr>
+            <td>
+              <a href="{{ dish.get_absolute_url }}">{{ dish.id }}</a>
+            </td>
+            <td>
+              <a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a>
+            </td>
+            <td>{{ dish.dish_type }}</td>
+            <td>{{ dish.price }}</td>
+            {% if user.is_authenticated %}
+              <td>
+                <a href="{% url 'restaurant:dish-update' dish.id %}" class="text-success">Update</a> |
+                <a href="{% url 'restaurant:dish-delete' dish.id %}" class="text-danger">Delete</a>
+              </td>
+            {% endif %}
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   {% else %}
     <p>There are no dishes in the Restaurant</p>
   {% endif %}
 
-  <h5>
-    <a href="{% url 'restaurant:dish-create' %}"> + create dish</a>
-  </h5>
+  {% if user.is_authenticated %}
+    <h5>
+      <a href="{% url 'restaurant:dish-create' %}"> + create dish</a>
+    </h5>
+  {% endif %}
 {% endblock %}

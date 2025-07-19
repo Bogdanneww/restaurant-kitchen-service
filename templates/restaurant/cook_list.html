@@ -3,16 +3,33 @@
 {% block content %}
   <h1>Cook list</h1>
   {% if cook_list %}
-    <ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Username</th>
+      </tr>
       {% for cook in cook_list %}
-        <li><a href="{% url 'restaurant:cook-detail' cook.id %}">{{ cook.first_name }} {{ cook.last_name }}</a></li>
+        <tr>
+          <td>
+            <a href="{{ cook.get_absolute_url }}">{{ cook.id }}</a>
+          </td>
+          <td>
+            <a href="{{ cook.get_absolute_url }}">{{ cook.first_name }} {{ cook.last_name }}</a>
+          </td>
+          <td>
+            {{ cook.username }}
+          </td>
+        </tr>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
     <p>There are no cooks in the Restaurant</p>
   {% endif %}
 
-  <h5>
-    <a href="{% url 'restaurant:cook-create' %}"> + create cook</a>
-  </h5>
+  {% if user.is_authenticated %}
+    <h5>
+      <a href="{% url 'restaurant:cook-create' %}"> + create cook</a>
+    </h5>
+  {% endif %}
 {% endblock %}
