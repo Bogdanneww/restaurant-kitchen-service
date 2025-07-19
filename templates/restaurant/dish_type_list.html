@@ -4,22 +4,34 @@
   <h1>Dish types list</h1>
 
   {% if dish_type_list %}
-    <ul>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        {% if user.is_authenticated %}
+          <th>Actions</th>
+        {% endif %}
+      </tr>
       {% for dish_type in dish_type_list %}
-        <li>
-          {{ dish_type.name }}
-          |
-          <a href="{% url 'restaurant:dish-type-update' dish_type.id %}" style="color: darkolivegreen;">Update</a>
-          |
-          <a href="{% url 'restaurant:dish-type-delete' dish_type.id %}" style="color: red;">Delete</a>
-        </li>
+        <tr>
+          <td>{{ dish_type.id }}</td>
+          <td>{{ dish_type.name }}</td>
+          {% if user.is_authenticated %}
+            <td>
+              <a href="{% url 'restaurant:dish-type-update' dish_type.id %}" style="color: darkolivegreen;">Update</a> |
+              <a href="{% url 'restaurant:dish-type-delete' dish_type.id %}" style="color: red;">Delete</a>
+            </td>
+          {% endif %}
+        </tr>
       {% endfor %}
-    </ul>
+    </table>
   {% else %}
     <p>There are no dish types in the Restaurant</p>
   {% endif %}
 
-  <h5>
-    <a href="{% url 'restaurant:dish-type-create' %}"> + create dish type</a>
-  </h5>
+  {% if user.is_authenticated %}
+    <h5>
+      <a href="{% url 'restaurant:dish-type-create' %}"> + create dish type</a>
+    </h5>
+  {% endif %}
 {% endblock %}
