@@ -12,11 +12,10 @@ class PublicAccessTests(TestCase):
             name="Borshch",
             description="Traditional beet soup",
             price=12.5,
-            dish_type=self.dish_type
+            dish_type=self.dish_type,
         )
         self.cook = get_user_model().objects.create_user(
-            username="cook",
-            password="cookpass"
+            username="cook", password="cookpass"
         )
         self.dish.cooks.add(self.cook)
 
@@ -38,11 +37,15 @@ class PublicAccessTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_dish_detail_view(self):
-        response = self.client.get(reverse("restaurant:dish-detail", args=[self.dish.id]))
+        response = self.client.get(
+            reverse("restaurant:dish-detail", args=[self.dish.id])
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_cook_detail_view(self):
-        response = self.client.get(reverse("restaurant:cook-detail", args=[self.cook.id]))
+        response = self.client.get(
+            reverse("restaurant:cook-detail", args=[self.cook.id])
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_protected_views_redirect_for_anonymous_user(self):
@@ -64,8 +67,7 @@ class PublicAccessTests(TestCase):
 class PrivateAccessTests(TestCase):
     def setUp(self):
         self.user = get_user_model().objects.create_user(
-            username="testuser",
-            password="testpass123"
+            username="testuser", password="testpass123"
         )
         self.client.login(username="testuser", password="testpass123")
         self.dish_type = DishType.objects.create(name="Pizza")
@@ -73,11 +75,13 @@ class PrivateAccessTests(TestCase):
             name="Margarita",
             description="Cheese and tomato",
             price=9.99,
-            dish_type=self.dish_type
+            dish_type=self.dish_type,
         )
 
     def test_create_dish_type(self):
-        response = self.client.post(reverse("restaurant:dish-type-create"), {"name": "NewType"})
+        response = self.client.post(
+            reverse("restaurant:dish-type-create"), {"name": "NewType"}
+        )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(DishType.objects.filter(name="NewType").exists())
 
@@ -94,25 +98,31 @@ class PrivateAccessTests(TestCase):
         self.assertFalse(DishType.objects.filter(id=self.dish_type.id).exists())
 
     def test_create_dish(self):
-        response = self.client.post(reverse("restaurant:dish-create"), {
-            "name": "TestDish",
-            "description": "Test",
-            "price": 15.5,
-            "dish_type": self.dish_type.id,
-            "cooks": [self.user.id]
-        })
+        response = self.client.post(
+            reverse("restaurant:dish-create"),
+            {
+                "name": "TestDish",
+                "description": "Test",
+                "price": 15.5,
+                "dish_type": self.dish_type.id,
+                "cooks": [self.user.id],
+            },
+        )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Dish.objects.filter(name="TestDish").exists())
 
     def test_update_dish(self):
         url = reverse("restaurant:dish-update", args=[self.dish.id])
-        response = self.client.post(url, {
-            "name": "UpdatedDish",
-            "description": "Updated",
-            "price": 10.0,
-            "dish_type": self.dish_type.id,
-            "cooks": [self.user.id]
-        })
+        response = self.client.post(
+            url,
+            {
+                "name": "UpdatedDish",
+                "description": "Updated",
+                "price": 10.0,
+                "dish_type": self.dish_type.id,
+                "cooks": [self.user.id],
+            },
+        )
         self.dish.refresh_from_db()
         self.assertEqual(self.dish.name, "UpdatedDish")
 
@@ -124,10 +134,13 @@ class PrivateAccessTests(TestCase):
 
     def test_create_cook(self):
         url = reverse("restaurant:cook-create")
-        response = self.client.post(url, {
-            "username": "newcook",
-            "password1": "strongpass123",
-            "password2": "strongpass123"
-        })
+        response = self.client.post(
+            url,
+            {
+                "username": "newcook",
+                "password1": "strongpass123",
+                "password2": "strongpass123",
+            },
+        )
         self.assertEqual(response.status_code, 302)
         self.assertTrue(get_user_model().objects.filter(username="newcook").exists())

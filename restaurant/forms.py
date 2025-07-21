@@ -15,7 +15,7 @@ class DishForm(forms.ModelForm):
     cooks = forms.ModelMultipleChoiceField(
         queryset=get_user_model().objects.all(),
         widget=forms.CheckboxSelectMultiple,
-        required=False
+        required=False,
     )
 
     class Meta:
@@ -28,7 +28,5 @@ class DishSearchForm(forms.Form):
         max_length=100,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Search dish name"}
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Search dish name"}),
     )

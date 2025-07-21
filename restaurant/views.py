@@ -20,7 +20,7 @@ def index(request: HttpRequest) -> HttpResponse:
         "num_dish_types": num_dish_types,
         "num_visits": num_visits + 1,
     }
-    return render(request, "restaurant/index.html", context = context)
+    return render(request, "restaurant/index.html", context=context)
 
 
 class DishTypeListView(generic.ListView):
@@ -57,9 +57,7 @@ class DishListView(generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
-        context["search_form"] = DishSearchForm(
-            initial={"name": name}
-        )
+        context["search_form"] = DishSearchForm(initial={"name": name})
         return context
 
     def get_queryset(self):
