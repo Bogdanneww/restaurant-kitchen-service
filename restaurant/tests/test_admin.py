@@ -12,8 +12,7 @@ class AdminSiteTests(TestCase):
         )
         self.client.force_login(self.admin_user)
         self.cook = get_user_model().objects.create_user(
-            username="cook_user",
-            password="testpass123"
+            username="cook_user", password="testpass123"
         )
         self.cook.first_name = "John"
         self.cook.last_name = "Doe"

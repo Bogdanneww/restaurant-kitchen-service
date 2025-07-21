@@ -18,8 +18,12 @@ class CookCreationFormTest(TestCase):
 class DishFormTest(TestCase):
     def setUp(self):
         self.dish_type = DishType.objects.create(name="Pizza")
-        self.cook1 = get_user_model().objects.create_user(username="cook1", password="test123")
-        self.cook2 = get_user_model().objects.create_user(username="cook2", password="test123")
+        self.cook1 = get_user_model().objects.create_user(
+            username="cook1", password="test123"
+        )
+        self.cook2 = get_user_model().objects.create_user(
+            username="cook2", password="test123"
+        )
 
     def test_form_fields(self):
         form = DishForm()
@@ -50,4 +54,6 @@ class DishSearchFormTest(TestCase):
         form = DishSearchForm()
         self.assertIn("name", form.fields)
         self.assertEqual(form.fields["name"].label, "")
-        self.assertEqual(form.fields["name"].widget.attrs["placeholder"], "Search dish name")
+        self.assertEqual(
+            form.fields["name"].widget.attrs["placeholder"], "Search dish name"
+        )
