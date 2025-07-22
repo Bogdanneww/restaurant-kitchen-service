@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+  <div class="home-content">
+    <h1>Restaurant</h1>
+    <p class="lead">
+      Thank you for visiting our restaurant!<br>
+      Here you’ll find a diverse selection of dishes,<br>
+      skilled cooks, and a cozy atmosphere created just for you.
+    </p>
+
+    <h3>Discover What's Inside Our Restaurant</h3>
+    <ul>
+      <li>Number of dishes: {{ num_dishes }}</li>
+      <li>Number of cooks: {{ num_cooks }}</li>
+      <li>Number of dish types: {{ num_dish_types }}</li>
+    </ul>
+
+    <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+  </div>
+{% endblock %}
