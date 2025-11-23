@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,django,pycharm+all
 
+dump.json
+*.dump.json
+
 ### Django ###
 *.log
 *.pot
